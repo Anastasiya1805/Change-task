@@ -12,12 +12,32 @@
 				{
 					"listen": "test",
 					"script": {
+						"id": "12d6e5da-ba1f-494d-820f-f1fd3d292cdd",
 						"exec": [
 							"let jsonData = pm.response.json();",
-							"pm.environment.set('token', jsonData.id_token)"
+							"pm.environment.set('token', jsonData.id_token)",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Status code name has string 'OK'\", function () {",
+							"    pm.response.to.have.status(\"OK\");",
+							"});",
+							"pm.test(\"Body matches string 'Token'\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"id_token\");",
+							"});",
+							"pm.test(\"Content-Type is present\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\");",
+							"});",
+							"pm.test(\"Connection is present\", function () {",
+							"    pm.response.to.have.header(\"Connection\");",
+							"});",
+							"pm.test(\"Authorization is present\", function () {",
+							"    pm.response.to.have.header(\"Authorization\");",
+							"});"
 						],
 						"type": "text/javascript",
-						"id": "12d6e5da-ba1f-494d-820f-f1fd3d292cdd"
+						"packages": {}
 					}
 				}
 			],
@@ -106,6 +126,7 @@
 				{
 					"listen": "test",
 					"script": {
+						"id": "9d5776de-d1d5-4cf4-91ea-66598e553ab8",
 						"exec": [
 							"let jsonData = pm.response.json();",
 							"",
@@ -116,10 +137,28 @@
 							"",
 							"pm.environment.set(\"task_id\", jsonData.id)",
 							"",
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"pm.test(\"Status code name has string 'Created'\", function () {",
+							"    pm.response.to.have.status(\"Created\");",
+							"});",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"id\");",
+							"});",
+							"pm.test(\"Content-Type is present\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\");",
+							"});",
+							"pm.test(\"Connection is present\", function () {",
+							"    pm.response.to.have.header(\"Connection\");",
+							"});",
+							"pm.test(\"Date is present\", function () {",
+							"    pm.response.to.have.header(\"Date\");",
+							"});",
 							""
 						],
 						"type": "text/javascript",
-						"id": "9d5776de-d1d5-4cf4-91ea-66598e553ab8"
+						"packages": {}
 					}
 				}
 			],
@@ -161,6 +200,36 @@
 		},
 		{
 			"name": "get tasks list",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a67c8193-2796-4c19-8659-f9f6ac332a2e",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Status code name has string 'OK'\", function () {\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"});\r",
+							"pm.test(\"Body matches string 'Text'\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"text\");\r",
+							"});\r",
+							"pm.test(\"Content-Type is present\", function () {\r",
+							"    pm.response.to.have.header(\"Content-Type\");\r",
+							"});\r",
+							"pm.test(\"Connection is present\", function () {\r",
+							"    pm.response.to.have.header(\"Connection\");\r",
+							"});\r",
+							"pm.test(\"X-Content-Type-Options is present\", function () {\r",
+							"    pm.response.to.have.header(\"X-Content-Type-Options\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"id": "488ba875-94eb-4965-89ec-eaac11af32f4",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
@@ -201,6 +270,36 @@
 		},
 		{
 			"name": "change task text",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0b43bf52-a679-44bc-9bca-ed9227fed707",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Status code name has string 'OK'\", function () {\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"});\r",
+							"pm.test(\"Body matches string 'Text'\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"text\");\r",
+							"});\r",
+							"pm.test(\"Content-Type is present\", function () {\r",
+							"    pm.response.to.have.header(\"Content-Type\");\r",
+							"});\r",
+							"pm.test(\"Connection is present\", function () {\r",
+							"    pm.response.to.have.header(\"Connection\");\r",
+							"});\r",
+							"pm.test(\"Cache-Control is present\", function () {\r",
+							"    pm.response.to.have.header(\"Cache-Control\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"id": "373b2cad-2b90-4bc1-afc6-0080fed8a2a0",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
@@ -244,6 +343,7 @@
 				{
 					"listen": "test",
 					"script": {
+						"id": "e93d4e11-a203-4e6f-9a6f-e92b90cba305",
 						"exec": [
 							"pm.sendRequest(",
 							"    {url: 'https://sqlverifier-50d286d70656.herokuapp.com/api/tasks/3070',",
@@ -255,10 +355,27 @@
 							"    , function (err, response) {",
 							"    console.log(response);",
 							"});",
-							""
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Status code name has string 'OK'\", function () {",
+							"    pm.response.to.have.status(\"OK\");",
+							"});",
+							"pm.test(\"Body matches string 'Answer'\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"answer\");",
+							"});",
+							"pm.test(\"Content-Type is present\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\");",
+							"});",
+							"pm.test(\"Connection is present\", function () {",
+							"    pm.response.to.have.header(\"Connection\");",
+							"});",
+							"pm.test(\"Cache-Control is present\", function () {",
+							"    pm.response.to.have.header(\"Cache-Control\");",
+							"});"
 						],
 						"type": "text/javascript",
-						"id": "e93d4e11-a203-4e6f-9a6f-e92b90cba305"
+						"packages": {}
 					}
 				}
 			],
