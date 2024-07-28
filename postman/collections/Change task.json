@@ -7,141 +7,6 @@
 	},
 	"item": [
 		{
-			"name": "login",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "12d6e5da-ba1f-494d-820f-f1fd3d292cdd",
-						"exec": [
-							"let jsonData = pm.response.json();",
-							"pm.environment.set('token', jsonData.id_token)",
-							"",
-							"//Преобразование тестов с помощью библиотеки Chai",
-							"let expect = require('chai').expect;",
-							"",
-							"pm.test(\"Status code is 200\", function () {",
-							"    expect(pm.response.code).to.equal(200);",
-							"});",
-							"",
-							"pm.test(\"Status message is OK\", function () {",
-							"    expect(pm.response.status).to.equal(\"OK\");",
-							"});",
-							"",
-							"pm.test(\"Body matches string\", function () {",
-							"    expect(pm.response.text()).to.include(\"id\");",
-							"});",
-							"",
-							"pm.test(\"Content-Type is application/json\", function () {",
-							"    expect(pm.response.headers.get(\"Content-Type\")).to.equal(\"application/json\");",
-							"});",
-							"",
-							"pm.test(\"Connection is close\", function () {",
-							"    expect(pm.response.headers.get(\"Connection\")).to.equal(\"close\");",
-							"});",
-							"",
-							"pm.test(\"X-Content-Type-Options is nosniff\", function(){",
-							"    expect(pm.response.headers.get(\"X-Content-Type-Options\")).to.equal(\"nosniff\");",
-							"});",
-							"",
-							"//Проверка даты в заголовке ответа на соответствие текущей дате(библиотека moment)",
-							"let moment = require('moment'); //подключение библиотеки moment",
-							"let currentDate = moment().format('YYYY-MM-DD HH:mm LL');",
-							"console.log(currentDate)",
-							"let responseDate = pm.response.headers.get('Date');",
-							"let responseDateFormatted = moment(responseDate).format('YYYY-MM-DD HH:mm LL');",
-							"console.log(responseDateFormatted)",
-							"pm.test(\"Date header matches to current date\", function () {",
-							"    pm.expect(responseDateFormatted).to.equal(currentDate);",
-							"});",
-							"",
-							""
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"id": "c06a851c-005e-4c88-b475-8b353072101c",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"auth": {
-					"type": "noauth"
-				},
-				"method": "POST",
-				"header": [
-					{
-						"key": "Accept",
-						"value": "application/json, text/plain, */*"
-					},
-					{
-						"key": "Accept-Language",
-						"value": "en-US,en;q=0.9,it-IT;q=0.8,it;q=0.7,fr-FR;q=0.6,fr;q=0.5,de-DE;q=0.4,de;q=0.3,ru;q=0.2"
-					},
-					{
-						"key": "Connection",
-						"value": "keep-alive"
-					},
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					},
-					{
-						"key": "Origin",
-						"value": "https://sqlverifier-50d286d70656.herokuapp.com"
-					},
-					{
-						"key": "Referer",
-						"value": "https://sqlverifier-50d286d70656.herokuapp.com/login"
-					},
-					{
-						"key": "Sec-Fetch-Dest",
-						"value": "empty"
-					},
-					{
-						"key": "Sec-Fetch-Mode",
-						"value": "cors"
-					},
-					{
-						"key": "Sec-Fetch-Site",
-						"value": "same-origin"
-					},
-					{
-						"key": "User-Agent",
-						"value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36"
-					},
-					{
-						"key": "sec-ch-ua",
-						"value": "\"Google Chrome\";v=\"119\", \"Chromium\";v=\"119\", \"Not?A_Brand\";v=\"24\""
-					},
-					{
-						"key": "sec-ch-ua-mobile",
-						"value": "?0"
-					},
-					{
-						"key": "sec-ch-ua-platform",
-						"value": "\"macOS\""
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\"username\":\"{{adminLogin}}\",\"password\":\"{{adminPassword}}\",\"rememberMe\":false}"
-				},
-				"url": {
-					"raw": "{{baseUrl}}/authenticate",
-					"host": [
-						"{{baseUrl}}"
-					],
-					"path": [
-						"authenticate"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "create a task",
 			"event": [
 				{
@@ -150,7 +15,6 @@
 						"id": "9d5776de-d1d5-4cf4-91ea-66598e553ab8",
 						"exec": [
 							"let jsonData = pm.response.json();",
-							"",
 							"",
 							"pm.test(\"Your test name\", function () {",
 							"    pm.expect(jsonData.text).to.eql(\"some text\");",
@@ -195,6 +59,38 @@
 							"    pm.expect(responseDateFormatted).to.equal(currentDate);",
 							"});",
 							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "8dfd0e40-1662-45de-9d86-13693dd7dbd7",
+						"exec": [
+							"pm.sendRequest(\r",
+							"    {url: 'https://sqlverifier-live-6e21ca0ed768.herokuapp.com/api/authenticate',\r",
+							"    method: 'POST',\r",
+							"    header:\r",
+							"    {'Accept': 'application/json, text/plain',\r",
+							"    'accept': '*/*',\r",
+							"    'Connection': 'keep-alive',\r",
+							"    'Content-Type': 'application/json'},\r",
+							"    body: {\r",
+							"        mode: 'raw',\r",
+							"        raw: JSON.stringify({\r",
+							"           username: 'anastasiyakolesnikovich',\r",
+							"            password: 'Varya09062018'\r",
+							"        })\r",
+							"    }}\r",
+							"    , function (err, response) {\r",
+							"    console.log(response.json());\r",
+							"    let jsonDataTok = response.json();\r",
+							"    pm.environment.set('token', jsonDataTok.id_token)\r",
+							"    }\r",
+							")\r",
+							"     "
 						],
 						"type": "text/javascript",
 						"packages": {}
@@ -414,7 +310,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "e93d4e11-a203-4e6f-9a6f-e92b90cba305",
+						"id": "c2807b43-1f14-4473-9afe-e9501b42e089",
 						"exec": [
 							"let expect = require('chai').expect;",
 							"let should = require('chai').should();",
@@ -450,7 +346,7 @@
 							"});",
 							"//удаление таски",
 							"pm.sendRequest(",
-							"    {url: 'https://sqlverifier-50d286d70656.herokuapp.com/api/tasks/3070',",
+							"    {url: 'https://sqlverifier-live-6e21ca0ed768.herokuapp.com/api/tasks/107390',",
 							"    method: 'DELETE',",
 							"    header:",
 							"    {'Authorization': 'Bearer ' + pm.environment.get('token'),",
@@ -459,6 +355,7 @@
 							"    , function (err, response) {",
 							"    console.log(response);",
 							"});",
+							"pm.environment.unset(\"token\");",
 							"",
 							""
 						],
