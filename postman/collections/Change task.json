@@ -15,6 +15,7 @@
 						"id": "9d5776de-d1d5-4cf4-91ea-66598e553ab8",
 						"exec": [
 							"let jsonData = pm.response.json();",
+							"pm.globals.set(\"variable_key\", \"variable_value\");",
 							"",
 							"pm.test(\"Your test name\", function () {",
 							"    pm.expect(jsonData.text).to.eql(\"some text\");",
@@ -238,8 +239,8 @@
 							"pm.test(\"Status message is OK\", function () {\r",
 							"    pm.response.status.should.equal(\"OK\");\r",
 							"});\r",
-							"pm.test(\"Body matches string 'Text\", function () {\r",
-							"    assert.include(pm.response.text(), \"text\");\r",
+							"pm.test(\"Body matches string 'some new new text\", function () {\r",
+							"    assert.include(pm.response.text(), \"some new new text\");\r",
 							"});\r",
 							"pm.test(\"Content-Type is application/json\", function () {\r",
 							"    expect(pm.response.headers.get(\"Content-Type\")).to.equal(\"application/json\");\r",
